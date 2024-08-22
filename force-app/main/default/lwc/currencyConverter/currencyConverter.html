@@ -1,0 +1,49 @@
+<template>
+    <div class="app">
+        <div class="container">
+            <div class="slds-card custom-card">
+                <form onsubmit={submitHanlder}>
+                    <h1 class="slds-var-m-vertical_small slds-text-align_center">Currency Converter</h1>
+                    <img src={currencyImage} alt="currency" class="slds-align_absolute-center slds-var-m-vertical_small"
+                        height="130" width="130" />
+                    <lightning-input type="number" name="amount" placeholder="Amount" required onchange={handleChange}
+                        variant="label-hidden" class="slds-var-m-vertical_small"></lightning-input>
+                    <div class="slds-grid slds-grid_align-space slds-grid_vertical-align-center">
+                        <div class="slds-col custom-width">
+                            <lightning-combobox label="From" name="from" value={from} options={countryList}
+                                placeholder="Currency" required onchange={handleChange} variant="label-hidden"
+                                class="slds-var-m-vertical_small"></lightning-combobox>
+                        </div>
+                        <div class="slds-col slds-text-align_center custom-margin">
+                            <lightning-icon icon-name='action:change_record_type' alternative-text='change_record_type'
+                                size='small' title='convert icon' class="custom-icon"></lightning-icon>
+                        </div>
+                        <div class="slds-col custom-width">
+                            <lightning-combobox label="To" name="to" value={to} options={countryList}
+                                placeholder="Currency" required onchange={handleChange} variant="label-hidden"
+                                class="slds-var-m-vertical_small"></lightning-combobox>
+
+                        </div>
+                    </div>
+                    <div>
+                        <template lwc:if={result}>
+                            <div class="result">{amount} {from} = <span class="result-to">{result} {to}</span></div>
+                        </template>
+                        <template lwc:elseif={error}>
+                            <div class="result">{error}</div>
+                        </template>
+                        <template lwc:elseif={loading}>
+                            <div class="spinner-div">
+                                <lightning-spinner alternative-text="Loading" size="small"
+                                    class="custom-spinner"></lightning-spinner>
+                            </div>
+                        </template>
+                    </div>
+                    <button class="slds-button slds-button_stretch button" type="submit">
+                        Convert
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>
